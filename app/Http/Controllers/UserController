@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Post;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+   
+    //user profile
+     public function show($id)
+    {
+        return User::findOrFail($id);
+    }
+
+    public function show($name)
+    {
+        return User::findOrFail($name);
+    }
+
+    public function show($email)
+    {
+        return User::findOrFail($email);
+    }
+
+    public function show($phone)
+    {
+        return User::findOrFail($phone);
+    }
+
+    public function show($adress)
+    {
+        return User::findOrFail($adress);
+    }
+    
+
+
+
+
+    //create post
+    public function createPost(Request $request){
+    $post = Post::create($request->all());
+
+    return response()->json($post);
+    }
+ 
+
+   //update post
+   public function updatePost(Request $request, $id){
+
+    $post = Post::find($id);
+    $post->title = $request->input('title');
+    $post->body  = $request->input('body');
+    $post->save();
+
+    return response()->json($post);
+    }
+
+
+    //delete post
+    public function deletePost($id){
+    $post = Post::find($id);
+    $post->delete();
+
+    return response()->json('Removed successfully.');
+    }
+
+
+    //list post
+    public function index(){
+    $post = Post::all();
+
+     return response()->json($post);
+     }
+
+    
+}
+}
